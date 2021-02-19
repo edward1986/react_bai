@@ -22,11 +22,13 @@ export class TodoRepositoryImpl implements TodoRepository {
         "https://gist.githubusercontent.com/janithl/6bfbd787a0361c170ac760e8fb5ba0fd/raw/a0ffacb7c0fc21a0266371f632cf4107f80362f4/todolist.json"
 
     async GetTodos(): Promise<Todo[]> {
-        return todos.map((todo: TodoDTO) => new Todo(todo.id, todo.task, todo.isCompleted))
+        return todos.map((todo: { id: any; task: any; isCompleted: any }) => {
+            return { id: todo.id, task: todo.task, isCompleted: todo.isCompleted}
+        })
     }
 
     PostTodo(todo: Todo): Todo {
-        return new Todo(todo.id, todo.task, todo.isCompleted)
+        return todos.push({ id: 1, task: "test task", isCompleted: false })
     }
 
     UpdateTodo(todo: Todo): Todo {
