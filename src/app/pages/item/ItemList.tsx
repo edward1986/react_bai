@@ -28,7 +28,7 @@ function GetList(props: any) {
             {show && <button onClick={() => setShow(!show)}>cancel</button>}
             <button
                 onClick={() => {
-                    props.remove(props.index)
+                    props.remove(props.index, props.item)
                 }}
             >
                 remove
@@ -43,8 +43,8 @@ const ItemList = ({ items }: ItemProps) => {
     const handleClick = () => {
         dispatch(refreshList)
     }
-    const handleItemRemove = (id: number) => {
-        removeItem(dispatch, id)
+    const handleItemRemove = (id: number, item: any) => {
+        removeItem(dispatch, { id: id, item: item })
     }
     const handleItemUpdate = (payload: any) => {
         updateItem(dispatch, payload)

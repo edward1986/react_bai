@@ -15,4 +15,16 @@ export class ItemRepositoryImpl implements ItemRepository {
         const jsonData = await res.json()
         return jsonData.map((item: ItemDTO) => new Item(item.id, item.name))
     }
+
+    PostItem(item: Item): Item {
+        return new Item(item.id, item.name)
+    }
+
+    UpdateItem(item: Item): Item {
+        return new Item(item.id, item.name)
+    }
+
+    DeleteItem(item: Item): boolean {
+        return true
+    }
 }

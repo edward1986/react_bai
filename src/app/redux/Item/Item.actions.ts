@@ -23,19 +23,22 @@ export const refreshList = async (dispatch: any) => {
 export const addItem = async (dispatch: any, payload: any) => {
     const itemRepo = new ItemRepositoryImpl()
     const itemService = new ItemServiceImpl(itemRepo)
-    const item = itemService.GetItem(payload)
+    const item = itemService.PostItem(payload)
     Item(dispatch, item, LIST_ADD)
 }
 
 export const updateItem = async (dispatch: any, payload: any) => {
     const itemRepo = new ItemRepositoryImpl()
     const itemService = new ItemServiceImpl(itemRepo)
-    payload.form = itemService.GetItem(payload.form)
+    payload.form = itemService.UpdateItem(payload.form)
     Item(dispatch, payload, LIST_UPDATE)
 }
 
 export const removeItem = async (dispatch: any, payload: any) => {
-    Item(dispatch, payload, LIST_REMOVE)
+    const itemRepo = new ItemRepositoryImpl()
+    const itemService = new ItemServiceImpl(itemRepo)
+    itemService.DeleteItem(payload.item)
+    Item(dispatch, payload.id, LIST_REMOVE)
 }
 function Item(dispatch: any, payload: any, type: string) {
     dispatch({ type: LIST_LOAD_REQUEST })
