@@ -7,12 +7,15 @@ export interface ItemService {
 
 export class ItemServiceImpl implements ItemService {
     itemRepo: ItemRepository
-
     constructor(ir: ItemRepository) {
         this.itemRepo = ir
     }
 
     async GetItems(): Promise<Item[]> {
         return this.itemRepo.GetItems()
+    }
+
+    GetItem(payload: any): Item {
+        return new Item(payload.id, payload.name)
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { connect, useDispatch } from "react-redux"
-import { refreshList } from "../../redux/Item/Item.actions"
-import { ItemProps, Item, LIST_REMOVE, LIST_UPDATE, LIST_ADD } from "../../redux/Item/Item.types"
+import { updateItem, addItem, refreshList, removeItem } from "../../redux/Item/Item.actions"
+import { ItemProps, Item } from "../../redux/Item/Item.types"
 
 interface RootState {
     items: any
@@ -44,10 +44,10 @@ const ItemList = ({ items }: ItemProps) => {
         dispatch(refreshList)
     }
     const handleItemRemove = (id: number) => {
-        dispatch({ type: LIST_REMOVE, payload: id })
+        removeItem(dispatch, id)
     }
     const handleItemUpdate = (payload: any) => {
-        dispatch({ type: LIST_UPDATE, payload: payload })
+        updateItem(dispatch, payload)
     }
 
     function handleChangeForm(event: any) {
@@ -55,7 +55,7 @@ const ItemList = ({ items }: ItemProps) => {
     }
 
     const handleItemAdd = (payload: any) => {
-        dispatch({ type: LIST_ADD, payload: form })
+        addItem(dispatch, form)
     }
     return (
         <div>
@@ -71,7 +71,7 @@ const ItemList = ({ items }: ItemProps) => {
                         index={index}
                         update={handleItemUpdate}
                         remove={handleItemRemove}
-                    ></GetList>
+                    />
                 ))}
             </ul>
         </div>

@@ -38,7 +38,7 @@ function items(state = initialState, action: any) {
         case LIST_ADD:
             return {
                 ...state,
-                items: [...state.items, new Item(action.payload.id, action.payload.name)],
+                items: [...state.items, action.payload],
                 loading: false,
             }
         case LIST_REMOVE:
@@ -52,7 +52,7 @@ function items(state = initialState, action: any) {
             const index = action.payload.index
             return {
                 ...state,
-                items: state.items.map((item: ItemDTO, i) => (i === index ? new Item(form.id, form.name) : item)),
+                items: state.items.map((item: ItemDTO, i) => (i === index ? form : item)),
                 loading: false,
             }
         default:
