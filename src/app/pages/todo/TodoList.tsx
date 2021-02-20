@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { connect, useDispatch } from "react-redux"
-import { addTodo, refreshList } from "../../redux/Todo/Todo.actions"
+import { addTodo, refreshList, removeTodo, updateTodo } from "../../redux/Todo/Todo.actions"
 import { TodoProps, Todo } from "../../redux/Todo/Todo.types"
 
 interface RootState {
@@ -53,11 +53,11 @@ const TodoList = ({ todos }: TodoProps) => {
     const handleClick = () => {
         dispatch(refreshList)
     }
-    const handleTodoRemove = (id: number, todo: any) => {
-        //removeTodo(dispatch, { id: id, todo: todo })
+    const handleTodoRemove = (index: number, todo: any) => {
+        removeTodo(dispatch, { index: index, todo: todo })
     }
     const handleTodoUpdate = (payload: any) => {
-        //updateTodo(dispatch, payload)
+        updateTodo(dispatch, payload)
     }
 
     function handleChangeForm(event: any) {

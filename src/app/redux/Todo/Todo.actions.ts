@@ -1,6 +1,6 @@
 import { TodoServiceImpl } from "../../../domain/usecases/TodoService"
 import { TodoRepositoryImpl } from "../../../data/repositories/TodoRepositoryImpl"
-import { LIST_ADD, LIST_LOAD_FAILURE, LIST_LOAD_REQUEST, LIST_LOAD_SUCCESS } from "./Todo.types"
+import { LIST_ADD, LIST_LOAD_FAILURE, LIST_LOAD_REQUEST, LIST_LOAD_SUCCESS, LIST_REMOVE, LIST_UPDATE} from "./Todo.types"
 export const refreshList = async (dispatch: any) => {
     dispatch({ type: LIST_LOAD_REQUEST })
     try {
@@ -18,7 +18,19 @@ export const addTodo = async (dispatch: any, payload: any) => {
     const todo = todoService.PostTodo(payload)
     Todo(dispatch, todo, LIST_ADD)
 }
+export const updateTodo = async (dispatch: any, payload: any) => {
+    const todoRepo = new TodoRepositoryImpl()
+    const todoService = new TodoServiceImpl(todoRepo)
+    payload.form = todoService.UpdateTodo(payload.form, payload.index)
+    Todo(dispatch, payload, LIST_UPDATE)
+}
 
+export const removeTodo = async (dispatch: any, payload: any) => {
+    const todoRepo = new TodoRepositoryImpl()
+    const todoService = new TodoServiceImpl(todoRepo)
+    todoService.DeleteTodo(payload.todo, payload.index)
+    Todo(dispatch, payload.id, LIST_REMOVE)
+}
 function Todo(dispatch: any, payload: any, type: string) {
     dispatch({ type: LIST_LOAD_REQUEST })
     try {
