@@ -20,4 +20,14 @@ export class TodoRepositoryImpl implements TodoRepository {
         todos.push(todo)
         return todo
     }
+
+    UpdateTodo(todo: Todo, index: number): Todo {
+        todos[index] = todo
+        return todo
+    }
+
+    DeleteTodo(todo: Todo, index: number): boolean {
+        todos.splice(index, 1)
+        return true
+    }
 }
